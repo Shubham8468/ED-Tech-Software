@@ -7,14 +7,12 @@ import bcrypt from "bcrypt"
 const userShema= new mongoose.Schema({
     fullName:{
         type:String,
-        required:[true,"Full name is required"],
         trim:true,
         minlength:[3,"Name must be at least 3 characters"],
         maxlength:[50,"Name connot exceed 50 characters"],
     },
     username:{
         type:String,
-        required:[true,"Username is required"],
         unique:true,
         trim:true,
         lowercase:true,
