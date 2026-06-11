@@ -1,5 +1,6 @@
 import mongoose from "mongoose";    
-import validator, { trim } from "validator";
+
+import validator from "validator";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
@@ -7,6 +8,7 @@ import bcrypt from "bcrypt"
 const userShema= new mongoose.Schema({
     fullName:{
         type:String,
+        required:true,
         trim:true,
         minlength:[3,"Name must be at least 3 characters"],
         maxlength:[50,"Name connot exceed 50 characters"],
@@ -32,10 +34,7 @@ const userShema= new mongoose.Schema({
     phoneNumber:{
         type:String,
         required:[true,"Phone number is required"],
-        validate:{
-            validator:(value)=>isValidPhoneNumber(value),
-            message:"Invalid phone number"
-        }
+        minlength:[10,"Phone number  must be at least 10 characters"],
     },
     password:{
         type:String,
@@ -49,6 +48,7 @@ const userShema= new mongoose.Schema({
     },
     gender: {
       type: String,
+      required:true,
       enum: ["male", "female", "other"],
     },
     bio:{
@@ -119,7 +119,7 @@ const userShema= new mongoose.Schema({
     
 },{timestamps:true});
 
-userShema.method.getJWTToken=function(){
+userShema.methods.getJWTToken=function(){
     return jwt.sign({
         id:this._id
     },

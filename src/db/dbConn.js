@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { User } from "../modules/auth/model/user.model.js";
+
 export const connectDb= async()=>{
     try {
         const db_Url=process.env.MONGO_URL
@@ -7,11 +9,12 @@ export const connectDb= async()=>{
         }
         await mongoose.connect(db_Url,{
             dbName:"ED-TECH-SOFTWARE"
-        }).then(()=>{
-            console.log("DB connected !");
-        })
+        });
+        console.log("DB connected !");
+        
+        // Sync indexes to automatically drop indexes that are no longer in the schema (e.g. username_1)
+        await User.syncIndexes();
     } catch (error) {
         console.log(`DB not connected ${error.message || error}`);
-        
     }
 }
