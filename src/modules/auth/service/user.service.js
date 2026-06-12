@@ -4,28 +4,11 @@ import {User} from "../model/user.model.js"
 
 
 export const  registerService = async ({
-     fullName,
-        phoneNumber,
-        username,
-        email,
-        password,
-        role,
-        gender,
-        bio,
-         headline,
-        linkedin,
-        github,
-        twitter,
-        youtube,
-        portfolio,
-       street,
-       city,
-       state,
-       country,
-       postalCode,
-        learningGoals
+    
+        
+        fullName,phoneNumber,email,password,role
 })=>{
-    if( [fullName,phoneNumber,email,password,role].some(f => !f?.trim())){
+    if( [fullName,phoneNumber,email,password].some(f => !f?.trim())){
       throw new ApiError(400, "All fields are required !");
     }  
     
@@ -34,30 +17,7 @@ export const  registerService = async ({
         throw new ApiError(409, "Email already registered !");
     }
     const user=await User.create({
-        fullName,
-        username,
-        phoneNumber,
-        email,
-        password,
-        role,
-        gender,
-        bio,
-        headline,
-        socialLinks:{
-            linkedin,
-        github,
-        twitter,
-        youtube,
-        portfolio,
-        },
-        address:{
-            street,
-       city,
-       state,
-       country,
-       postalCode,
-        },
-        learningGoals
+       fullName,phoneNumber,email,password,role
     })
     return user;
 }
