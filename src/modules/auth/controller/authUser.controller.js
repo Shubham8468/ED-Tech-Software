@@ -31,8 +31,6 @@ export const loginUser=AsyncHandller(async (req,resp)=>{
     }
     return sendToken(loggedUser,200,resp,"User Login Successfully !");
 })
-
-
 export const userLogout= AsyncHandller(async (req,resp)=>{
     resp.status(200).cookie("token","",{
         expires:new Date(
