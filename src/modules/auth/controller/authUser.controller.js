@@ -7,13 +7,12 @@ import {registerService, loginUser as loginUserService} from "../service/user.se
 
 // user Register function here.....
 
-
 export const registerController = AsyncHandller(async (req,resp)=>{
     const {
-        fullName,phoneNumber,email,password,role
+        email,password,role
     }=req.body;
     const createUser= await registerService({
-       fullName,phoneNumber,email,password,role
+       email,password,role
     });
     if(!createUser){
          throw new ApiError(400, "User not registered, Please Try Again !");
